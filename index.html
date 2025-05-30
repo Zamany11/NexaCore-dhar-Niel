@@ -132,7 +132,7 @@
         
         /* Section Styling */
         .section-padding {
-            padding: 100px 0;
+            padding: 120px 0;
         }
         
         .bg-ash-light {
@@ -142,7 +142,7 @@
         
         .section-title {
             position: relative;
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
         }
         
         .section-title::after {
@@ -161,7 +161,8 @@
         .content-card {
             background: white;
             border-radius: 15px;
-            padding: 2.5rem;
+            padding: 3rem;
+            margin-bottom: 2.5rem;
             box-shadow: 0 10px 30px var(--shadow-light);
             transition: all 0.3s ease;
             border: 1px solid rgba(0, 0, 0, 0.05);
@@ -469,29 +470,39 @@
             }
             
             .section-padding {
-                padding: 40px 0;
+                padding: 50px 0;
             }
             
             .section-title {
                 font-size: 2rem;
-                margin-bottom: 2rem;
+                margin-bottom: 2.5rem;
             }
             
             .content-card {
-                padding: 1.25rem;
-                margin-bottom: 1.5rem;
+                padding: 1.5rem;
+                margin-bottom: 2rem;
             }
             
             .nav-tabs {
-                flex-direction: column;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 1fr 1fr;
+                gap: 0.75rem;
+                justify-content: center;
                 align-items: stretch;
+                margin: 0 auto;
+                max-width: 300px;
             }
             
             .nav-tabs .nav-link {
-                margin: 0.25rem 0;
+                margin: 0;
                 text-align: center;
                 border-radius: 10px;
-                padding: 10px 16px;
+                padding: 12px 8px;
+                font-size: 0.85rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
             
             .list-group-item {
