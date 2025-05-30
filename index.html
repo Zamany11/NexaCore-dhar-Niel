@@ -6,6 +6,8 @@
     <title>NexaCore Solutions - Strategic Business Consulting</title>
     <!-- Bootstrap 5.3.0 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         /* Custom Color Scheme: Black, Ash (Gray), White */
         :root {
@@ -483,26 +485,75 @@
                 margin-bottom: 2rem;
             }
             
+            /* Services Section Mobile Adjustments */
             .nav-tabs {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
                 grid-template-rows: 1fr 1fr;
                 gap: 0.75rem;
-                justify-content: center;
-                align-items: stretch;
+                border: none;
                 margin: 0 auto;
                 max-width: 300px;
             }
             
+            .nav-tabs .nav-item {
+                margin-bottom: 0;
+            }
+            
             .nav-tabs .nav-link {
-                margin: 0;
-                text-align: center;
-                border-radius: 10px;
-                padding: 12px 8px;
+                padding: 0.75rem 0.5rem;
                 font-size: 0.85rem;
+                text-align: center;
+                border: 1px solid var(--ash-light);
+                border-radius: 8px;
+                background-color: #fff;
+                color: var(--text-dark);
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
+                transition: all 0.3s ease;
+            }
+            
+            .nav-tabs .nav-link.active {
+                background-color: var(--primary-dark);
+                color: white;
+                border-color: var(--primary-dark);
+            }
+            
+            .nav-tabs .nav-link i {
+                font-size: 0.8rem;
+            }
+            
+            .service-card {
+                margin-bottom: 1.5rem;
+            }
+            
+            .service-card .card-body {
+                padding: 2rem 1.5rem;
+            }
+            
+            .service-card .service-icon {
+                width: 80px;
+                height: 80px;
+                margin: 0 auto;
+            }
+            
+            .service-card .card-title {
+                font-size: 1.5rem;
+                text-align: center;
+            }
+            
+            .service-card .card-text {
+                text-align: center;
+                font-size: 1rem;
+                line-height: 1.6;
+            }
+            
+            .service-card .btn {
+                display: block;
+                width: auto;
+                margin: 1rem auto 0;
+                padding: 0.75rem 2rem;
             }
             
             .list-group-item {
@@ -659,6 +710,77 @@
                 background-size: 50px 50px;
             }
         }
+        
+        /* Service Cards Styling */
+        .service-card {
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #000 0%, var(--ash-medium) 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px var(--shadow-medium) !important;
+        }
+        
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .service-card .service-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #000 0%, #333 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px var(--shadow-light);
+        }
+        
+        .service-card:hover .service-icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 12px 30px var(--shadow-medium);
+        }
+        
+        .service-card .card-title {
+            color: #000;
+            font-size: 1.4rem;
+            transition: color 0.3s ease;
+        }
+        
+        .service-card:hover .card-title {
+            color: #333;
+        }
+        
+        .service-card .btn {
+            transition: all 0.3s ease;
+            font-weight: 600;
+            border-width: 2px;
+        }
+        
+        .service-card .btn:hover {
+            background: #000;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px var(--shadow-medium);
+        }
     </style>
 </head>
 <body>
@@ -740,7 +862,7 @@
         </div>
     </section>
 
-    <!-- Services Section (Bootstrap Tabs) -->
+    <!-- Services Section (Bootstrap Tabs with Cards) -->
     <section id="services" class="section-padding">
         <div class="container">
             <div class="row">
@@ -749,52 +871,99 @@
                     <p class="lead text-muted">Comprehensive consulting solutions designed to accelerate your business transformation</p>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <ul class="nav nav-tabs justify-content-center mb-4" id="servicesTabs" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="consulting-tab" data-bs-toggle="tab" data-bs-target="#consulting" type="button" role="tab">Consulting</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="strategy-tab" data-bs-toggle="tab" data-bs-target="#strategy" type="button" role="tab">Strategy</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="support-tab" data-bs-toggle="tab" data-bs-target="#support" type="button" role="tab">Support</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="implementation-tab" data-bs-toggle="tab" data-bs-target="#implementation" type="button" role="tab">Implementation</button>
-                        </li>
-                    </ul>
-                    <div class="tab-content" id="servicesTabContent">
-                        <div class="tab-pane fade show active" id="consulting" role="tabpanel">
-                            <div class="row">
-                                <div class="col-lg-8 mx-auto text-center">
-                                    <h3 class="mb-3">Business Consulting</h3>
-                                    <p>Our expert consultants analyze your current operations, identify growth opportunities, and develop actionable strategies to optimize performance. We specialize in process improvement, organizational restructuring, and digital transformation initiatives that deliver immediate and long-term value to your business.</p>
+            
+            <!-- Bootstrap Tabs Navigation -->
+            <ul class="nav nav-tabs justify-content-center mb-4" id="servicesTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="consulting-tab" data-bs-toggle="tab" data-bs-target="#consulting" type="button" role="tab" aria-controls="consulting" aria-selected="true">
+                        <i class="fas fa-chart-line me-2"></i>Consulting
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="strategy-tab" data-bs-toggle="tab" data-bs-target="#strategy" type="button" role="tab" aria-controls="strategy" aria-selected="false">
+                        <i class="fas fa-bullseye me-2"></i>Strategy
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="support-tab" data-bs-toggle="tab" data-bs-target="#support" type="button" role="tab" aria-controls="support" aria-selected="false">
+                        <i class="fas fa-headset me-2"></i>Support
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="implementation-tab" data-bs-toggle="tab" data-bs-target="#implementation" type="button" role="tab" aria-controls="implementation" aria-selected="false">
+                        <i class="fas fa-cogs me-2"></i>Implementation
+                    </button>
+                </li>
+            </ul>
+            
+            <!-- Tab Content with Cards -->
+            <div class="tab-content" id="servicesTabContent">
+                <!-- Business Consulting Tab -->
+                <div class="tab-pane fade show active" id="consulting" role="tabpanel" aria-labelledby="consulting-tab">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <div class="card service-card border-0 shadow-lg">
+                                <div class="card-body p-5 text-center">
+                                    <div class="service-icon mb-4">
+                                        <i class="fas fa-chart-line fa-3x"></i>
+                                    </div>
+                                    <h3 class="card-title fw-bold mb-4">Business Consulting</h3>
+                                    <p class="card-text text-muted lead mb-4">Our expert consultants analyze your current operations, identify growth opportunities, and develop actionable strategies to optimize performance. We specialize in process improvement, organizational restructuring, and digital transformation initiatives that deliver immediate and long-term value to your business.</p>
+                                    <button class="btn btn-dark btn-lg" data-bs-toggle="modal" data-bs-target="#consultingModal">Learn More</button>
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="strategy" role="tabpanel">
-                            <div class="row">
-                                <div class="col-lg-8 mx-auto text-center">
-                                    <h3 class="mb-3">Strategic Planning</h3>
-                                    <p>Develop comprehensive roadmaps for sustainable growth with our strategic planning services. We conduct thorough market analysis, competitive intelligence, and risk assessment to create data-driven strategies that align with your vision and market opportunities while ensuring operational feasibility.</p>
+                    </div>
+                </div>
+                
+                <!-- Strategic Planning Tab -->
+                <div class="tab-pane fade" id="strategy" role="tabpanel" aria-labelledby="strategy-tab">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <div class="card service-card border-0 shadow-lg">
+                                <div class="card-body p-5 text-center">
+                                    <div class="service-icon mb-4">
+                                        <i class="fas fa-bullseye fa-3x"></i>
+                                    </div>
+                                    <h3 class="card-title fw-bold mb-4">Strategic Planning</h3>
+                                    <p class="card-text text-muted lead mb-4">Develop comprehensive roadmaps for sustainable growth with our strategic planning services. We conduct thorough market analysis, competitive intelligence, and risk assessment to create data-driven strategies that align with your vision and market opportunities while ensuring operational feasibility.</p>
+                                    <button class="btn btn-dark btn-lg" data-bs-toggle="modal" data-bs-target="#strategyModal">Learn More</button>
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="support" role="tabpanel">
-                            <div class="row">
-                                <div class="col-lg-8 mx-auto text-center">
-                                    <h3 class="mb-3">Ongoing Support</h3>
-                                    <p>Ensure continuous improvement with our dedicated support services. Our team provides ongoing monitoring, performance tracking, and strategic adjustments to keep your initiatives on track. We offer 24/7 consultation, regular progress reviews, and proactive recommendations for sustained success.</p>
+                    </div>
+                </div>
+                
+                <!-- Ongoing Support Tab -->
+                <div class="tab-pane fade" id="support" role="tabpanel" aria-labelledby="support-tab">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <div class="card service-card border-0 shadow-lg">
+                                <div class="card-body p-5 text-center">
+                                    <div class="service-icon mb-4">
+                                        <i class="fas fa-headset fa-3x"></i>
+                                    </div>
+                                    <h3 class="card-title fw-bold mb-4">Ongoing Support</h3>
+                                    <p class="card-text text-muted lead mb-4">Ensure continuous improvement with our dedicated support services. Our team provides ongoing monitoring, performance tracking, and strategic adjustments to keep your initiatives on track. We offer 24/7 consultation, regular progress reviews, and proactive recommendations for sustained success.</p>
+                                    <button class="btn btn-dark btn-lg" data-bs-toggle="modal" data-bs-target="#supportModal">Learn More</button>
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="implementation" role="tabpanel">
-                            <div class="row">
-                                <div class="col-lg-8 mx-auto text-center">
-                                    <h3 class="mb-3">Solution Implementation</h3>
-                                    <p>Turn strategies into reality with our hands-on implementation services. We manage end-to-end project execution, change management, and technology integration to ensure seamless deployment. Our proven methodology minimizes disruption while maximizing adoption and ROI.</p>
+                    </div>
+                </div>
+                
+                <!-- Solution Implementation Tab -->
+                <div class="tab-pane fade" id="implementation" role="tabpanel" aria-labelledby="implementation-tab">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <div class="card service-card border-0 shadow-lg">
+                                <div class="card-body p-5 text-center">
+                                    <div class="service-icon mb-4">
+                                        <i class="fas fa-cogs fa-3x"></i>
+                                    </div>
+                                    <h3 class="card-title fw-bold mb-4">Solution Implementation</h3>
+                                    <p class="card-text text-muted lead mb-4">Turn strategies into reality with our hands-on implementation services. We manage end-to-end project execution, change management, and technology integration to ensure seamless deployment. Our proven methodology minimizes disruption while maximizing adoption and ROI.</p>
+                                    <button class="btn btn-dark btn-lg" data-bs-toggle="modal" data-bs-target="#implementationModal">Learn More</button>
                                 </div>
                             </div>
                         </div>
@@ -1028,7 +1197,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <p class="mb-0">&copy; 2025 NexaCore Solutions. All Rights Reserved.</p>
+                    <p class="mb-0">&copy; 2025 NexaCore Solutions. By Martina Daniel Adhazor.</p>
                 </div>
             </div>
         </div>
