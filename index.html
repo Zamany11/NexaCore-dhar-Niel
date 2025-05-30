@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexaCore Solutions - Strategic Business Consulting</title>
+    <!-- Bootstrap 5.3.0 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom Color Scheme: Black, Ash (Gray), White */
+        :root {
+            --ash-light: #f8f9fa;
+            --ash-medium: #6c757d;
+            --ash-dark: #495057;
+            --shadow-light: rgba(0, 0, 0, 0.1);
+            --shadow-medium: rgba(0, 0, 0, 0.15);
+            --shadow-dark: rgba(0, 0, 0, 0.3);
+        }
+        
+        * {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            padding-top: 76px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+        }
+        
+        /* Navbar Styling */
+        .navbar-custom {
+            background: linear-gradient(135deg, #000 0%, #1a1a1a 100%) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px var(--shadow-dark);
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-link:hover {
+            color: #fff !important;
+            transform: translateY(-2px);
+        }
+        
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 2px;
+            background: #fff;
+            border-radius: 2px;
+        }
+        
+        /* Hero Section */
+        .hero-slide {
+            height: 100vh;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23000" opacity="0.02"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>') repeat;
+            pointer-events: none;
+        }
+        
+        .hero-content {
+            color: #000;
+            max-width: 700px;
+            z-index: 2;
+            position: relative;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .hero-content h1 {
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px var(--shadow-light);
+        }
+        
+        .hero-content .lead {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* Section Styling */
+        .section-padding {
+            padding: 100px 0;
+        }
+        
+        .bg-ash-light {
+            background: linear-gradient(135deg, var(--ash-light) 0%, #ffffff 100%);
+            position: relative;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(135deg, #000 0%, var(--ash-medium) 100%);
+            border-radius: 2px;
+        }
+        
+        /* Card-like sections */
+        .content-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px var(--shadow-light);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px var(--shadow-medium);
+        }
+        
+        /* Tabs Custom Styling */
+        .nav-tabs {
+            border: none;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        
+        .nav-tabs .nav-link {
+            color: #000;
+            border: 2px solid transparent;
+            border-radius: 25px;
+            padding: 12px 24px;
+            margin: 0 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background: white;
+            box-shadow: 0 4px 15px var(--shadow-light);
+        }
+        
+        .nav-tabs .nav-link.active {
+            background: linear-gradient(135deg, #000 0%, #333 100%);
+            color: white;
+            border-color: #000;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--shadow-medium);
+        }
+        
+        .nav-tabs .nav-link:hover:not(.active) {
+            background: var(--ash-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--shadow-light);
+        }
+        
+        .tab-content {
+            animation: fadeInUp 0.5s ease-out;
+        }
+        
+        /* List Group Custom Styling */
+        .list-group {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px var(--shadow-light);
+        }
+        
+        .list-group-item {
+            background-color: white;
+            border: none;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            color: #000;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .list-group-item:hover {
+            background: linear-gradient(135deg, var(--ash-light) 0%, #ffffff 100%);
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px var(--shadow-light);
+        }
+        
+        .list-group-item:last-child {
+            border-bottom: none;
+        }
+        
+        .feature-icon {
+            background: linear-gradient(135deg, #000 0%, #333 100%);
+            color: white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px var(--shadow-medium);
+            transition: all 0.3s ease;
+        }
+        
+        .list-group-item:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        /* Accordion Custom Styling */
+        .accordion {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px var(--shadow-light);
+        }
+        
+        .accordion-item {
+            border: none;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .accordion-item:last-child {
+            border-bottom: none;
+        }
+        
+        .accordion-button {
+            background: white;
+            color: #000;
+            border: none;
+            padding: 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .accordion-button:not(.collapsed) {
+            background: linear-gradient(135deg, #000 0%, #333 100%);
+            color: white;
+            box-shadow: none;
+        }
+        
+        .accordion-button:hover {
+            background: var(--ash-light);
+        }
+        
+        .accordion-button:not(.collapsed):hover {
+            background: linear-gradient(135deg, #333 0%, #000 100%);
+        }
+        
+        .accordion-button:focus {
+            box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.1);
+        }
+        
+        .accordion-body {
+            padding: 1.5rem;
+            background: white;
+        }
+        
+        /* Form Styling */
+        .form-control {
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 12px 16px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .form-control:focus {
+            border-color: #000;
+            box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: #000;
+            margin-bottom: 8px;
+        }
+        
+        /* Modal Custom Styling */
+        .modal-content {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px var(--shadow-dark);
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, #000 0%, #333 100%);
+            color: white;
+            padding: 1.5rem;
+        }
+        
+        .modal-body {
+            padding: 2rem;
+        }
+        
+        .modal-footer {
+            background: var(--ash-light);
+            padding: 1.5rem;
+        }
+        
+        /* Button Enhancements */
+        .btn {
+            border-radius: 25px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn-dark {
+            background: linear-gradient(135deg, #000 0%, #333 100%);
+            box-shadow: 0 5px 15px var(--shadow-medium);
+        }
+        
+        .btn-dark:hover {
+            background: linear-gradient(135deg, #333 0%, #000 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--shadow-dark);
+        }
+        
+        .btn-ash {
+            background: linear-gradient(135deg, var(--ash-medium) 0%, var(--ash-dark) 100%);
+            color: white;
+            box-shadow: 0 5px 15px var(--shadow-light);
+        }
+        
+        .btn-ash:hover {
+            background: linear-gradient(135deg, var(--ash-dark) 0%, var(--ash-medium) 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--shadow-medium);
+        }
+        
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
+            color: white;
+            padding: 60px 0;
+            position: relative;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        }
+        
+        /* Scroll animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Responsive enhancements */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-padding {
+                padding: 60px 0;
+            }
+            
+            .content-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-custom">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#home">NexaCore Solutions</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#faq">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section (Bootstrap Carousel) -->
+    <section id="home">
+        <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+            </div>
+            <div class="carousel-inner">
+                <!-- Slide 1 -->
+                <div class="carousel-item active">
+                    <div class="hero-slide">
+                        <div class="hero-content">
+                            <h1 class="display-4 fw-bold mb-4">Transform Your Business Today</h1>
+                            <p class="lead mb-4">Unlock your company's potential with data-driven strategies and innovative solutions that deliver measurable results in today's competitive market.</p>
+                            <button class="btn btn-dark btn-lg" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Discover our services!">Learn More</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slide 2 -->
+                <div class="carousel-item">
+                    <div class="hero-slide">
+                        <div class="hero-content">
+                            <h1 class="display-4 fw-bold mb-4">Strategic Growth Partners</h1>
+                            <p class="lead mb-4">Partner with industry experts who understand your challenges and deliver customized solutions that drive sustainable growth and operational excellence.</p>
+                            <button class="btn btn-dark btn-lg">Get Started</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slide 3 -->
+                <div class="carousel-item">
+                    <div class="hero-slide">
+                        <div class="hero-content">
+                            <h1 class="display-4 fw-bold mb-4">Innovation-Driven Results</h1>
+                            <p class="lead mb-4">Leverage cutting-edge technology and proven methodologies to streamline operations, reduce costs, and accelerate your path to market leadership.</p>
+                            <button class="btn btn-dark btn-lg">Contact Us</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Services Section (Bootstrap Tabs) -->
+    <section id="services" class="section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center mb-5">
+                    <h2 class="display-5 fw-bold">Our Core Services</h2>
+                    <p class="lead text-muted">Comprehensive consulting solutions designed to accelerate your business transformation</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="nav nav-tabs justify-content-center mb-4" id="servicesTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="consulting-tab" data-bs-toggle="tab" data-bs-target="#consulting" type="button" role="tab">Consulting</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="strategy-tab" data-bs-toggle="tab" data-bs-target="#strategy" type="button" role="tab">Strategy</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="support-tab" data-bs-toggle="tab" data-bs-target="#support" type="button" role="tab">Support</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="implementation-tab" data-bs-toggle="tab" data-bs-target="#implementation" type="button" role="tab">Implementation</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="servicesTabContent">
+                        <div class="tab-pane fade show active" id="consulting" role="tabpanel">
+                            <div class="row">
+                                <div class="col-lg-8 mx-auto text-center">
+                                    <h3 class="mb-3">Business Consulting</h3>
+                                    <p>Our expert consultants analyze your current operations, identify growth opportunities, and develop actionable strategies to optimize performance. We specialize in process improvement, organizational restructuring, and digital transformation initiatives that deliver immediate and long-term value to your business.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="strategy" role="tabpanel">
+                            <div class="row">
+                                <div class="col-lg-8 mx-auto text-center">
+                                    <h3 class="mb-3">Strategic Planning</h3>
+                                    <p>Develop comprehensive roadmaps for sustainable growth with our strategic planning services. We conduct thorough market analysis, competitive intelligence, and risk assessment to create data-driven strategies that align with your vision and market opportunities while ensuring operational feasibility.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="support" role="tabpanel">
+                            <div class="row">
+                                <div class="col-lg-8 mx-auto text-center">
+                                    <h3 class="mb-3">Ongoing Support</h3>
+                                    <p>Ensure continuous improvement with our dedicated support services. Our team provides ongoing monitoring, performance tracking, and strategic adjustments to keep your initiatives on track. We offer 24/7 consultation, regular progress reviews, and proactive recommendations for sustained success.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="implementation" role="tabpanel">
+                            <div class="row">
+                                <div class="col-lg-8 mx-auto text-center">
+                                    <h3 class="mb-3">Solution Implementation</h3>
+                                    <p>Turn strategies into reality with our hands-on implementation services. We manage end-to-end project execution, change management, and technology integration to ensure seamless deployment. Our proven methodology minimizes disruption while maximizing adoption and ROI.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section (Bootstrap List Group) -->
+    <section id="features" class="section-padding bg-ash-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center mb-5">
+                    <h2 class="display-5 fw-bold">Why Choose NexaCore Solutions?</h2>
+                    <p class="lead text-muted">Experience the difference that expertise, innovation, and commitment make</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex align-items-center py-4">
+                            <div class="me-3">
+                                <div class="bg-dark text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                    <strong>1</strong>
+                                </div>
+                            </div>
+                            <div>
+                                <h5 class="mb-1">Industry-Leading Expertise</h5>
+                                <p class="mb-0 text-muted">Our certified consultants average 15+ years of experience across Fortune 500 companies, bringing deep industry knowledge and proven methodologies to accelerate your success.</p>
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex align-items-center py-4">
+                            <div class="me-3">
+                                <div class="bg-dark text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                    <strong>2</strong>
+                                </div>
+                            </div>
+                            <div>
+                                <h5 class="mb-1">Measurable ROI</h5>
+                                <p class="mb-0 text-muted">Our clients achieve an average 35% improvement in operational efficiency and 28% increase in revenue within 12 months of engagement. Results backed by data and testimonials.</p>
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex align-items-center py-4">
+                            <div class="me-3">
+                                <div class="bg-dark text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                    <strong>3</strong>
+                                </div>
+                            </div>
+                            <div>
+                                <h5 class="mb-1">Tailored Solutions</h5>
+                                <p class="mb-0 text-muted">Every engagement begins with comprehensive discovery to understand your unique challenges, culture, and goals. We craft bespoke solutions that fit your specific business context and objectives.</p>
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex align-items-center py-4">
+                            <div class="me-3">
+                                <div class="bg-dark text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                    <strong>4</strong>
+                                </div>
+                            </div>
+                            <div>
+                                <h5 class="mb-1">Partnership Approach</h5>
+                                <p class="mb-0 text-muted">We build lasting relationships through transparent communication, knowledge transfer, and ongoing support. Your success is our success, and we're committed to your long-term growth.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section (Bootstrap Accordion) -->
+    <section id="faq" class="section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center mb-5">
+                    <h2 class="display-5 fw-bold">Frequently Asked Questions</h2>
+                    <p class="lead text-muted">Get answers to the most common questions about our consulting services</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="faq1">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
+                                    What industries and company sizes do you serve?
+                                </button>
+                            </h2>
+                            <div id="collapse1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    We serve companies ranging from mid-market businesses ($50M+ revenue) to Fortune 500 enterprises across technology, healthcare, manufacturing, financial services, and retail sectors. Our scalable methodologies adapt to organizations with 100 to 50,000+ employees, ensuring relevant solutions regardless of size or complexity.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="faq2">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
+                                    What is the typical timeline for consulting engagements?
+                                </button>
+                            </h2>
+                            <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Project timelines vary by scope and complexity. Strategic assessments typically take 4-6 weeks, while comprehensive transformation initiatives range from 6-18 months. We provide detailed project plans with clear milestones and deliverables during our initial discovery phase to set accurate expectations.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="faq3">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
+                                    What post-implementation support do you offer?
+                                </button>
+                            </h2>
+                            <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Yes, we offer flexible support packages including 90-day transition support, quarterly business reviews, performance monitoring, and on-demand consultation. Our goal is to ensure sustainable implementation and continuous improvement long after the initial engagement concludes.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="faq4">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4">
+                                    How do you structure your consulting fees?
+                                </button>
+                            </h2>
+                            <div id="collapse4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    We offer flexible pricing models including fixed-fee projects, time-and-materials engagements, and performance-based contracts. Pricing depends on project scope, timeline, and team composition. We provide transparent proposals with detailed cost breakdowns and no hidden fees.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section (Bootstrap Forms & Modal) -->
+    <section id="contact" class="section-padding bg-ash-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center mb-5">
+                    <h2 class="display-5 fw-bold">Start Your Transformation</h2>
+                    <p class="lead text-muted">Ready to unlock your business potential? Let's discuss how we can help you achieve your goals</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <!-- Main Contact Form -->
+                            <form>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="firstName" class="form-label">First Name</label>
+                                        <input type="text" class="form-control" id="firstName" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="lastName" class="form-label">Last Name</label>
+                                        <input type="text" class="form-control" id="lastName" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="message" class="form-label">Message</label>
+                                    <textarea class="form-control" id="message" rows="5" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Submit your inquiry now.">Send Message</button>
+                            </form>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <h5 class="mb-3">Request a Consultation</h5>
+                                <p class="text-muted mb-4">Schedule a complimentary strategy session to explore how we can accelerate your business transformation.</p>
+                                <button type="button" class="btn btn-ash" data-bs-toggle="modal" data-bs-target="#quoteModal">
+                                    Schedule Consultation
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Request Modal -->
+    <div class="modal fade" id="quoteModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Consultation Request</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-4">Tell us about your business challenges and objectives so we can prepare for a productive consultation.</p>
+                    <form>
+                        <div class="mb-3">
+                            <label for="companyName" class="form-label">Company Name</label>
+                            <input type="text" class="form-control" id="companyName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="serviceNeeded" class="form-label">Primary Interest</label>
+                            <select class="form-select" id="serviceNeeded" required>
+                                <option value="">Select your primary interest...</option>
+                                <option value="consulting">Business Process Optimization</option>
+                                <option value="strategy">Strategic Planning & Growth</option>
+                                <option value="digital">Digital Transformation</option>
+                                <option value="implementation">Change Management</option>
+                                <option value="assessment">Business Assessment</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="projectDetails" class="form-label">Business Challenges</label>
+                            <textarea class="form-control" id="projectDetails" rows="3" placeholder="Describe your current business challenges and what you hope to achieve..."></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-dark">Schedule Consultation</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <p class="mb-0">&copy; 2025 NexaCore Solutions. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5.3.0 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Initialize tooltips
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+        
+        // Smooth scrolling for navbar links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 70; // Account for fixed navbar
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Update active navbar link on scroll
+        window.addEventListener('scroll', function() {
+            let current = '';
+            const sections = document.querySelectorAll('section[id]');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
